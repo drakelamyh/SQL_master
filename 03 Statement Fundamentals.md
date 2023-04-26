@@ -2,6 +2,12 @@
 
 SQL syntax can be applied to any major type of SQL Database (MySQL, Oracle, etc.)
 
+Note that SQL syntax keywords in caps can be run as well in lowercase, the query will still work.
+
+Easier to read and standardised notation in caps.
+
+Semicolon ; denotes the end of a query. Still runs even without semicolon.
+
 
 ## SELECT
 
@@ -13,19 +19,15 @@ To select entire table, use the asterisk * syntax.
 
 `SELECT * FROM table_1`
 
-Not good practice to use asterisk in SELECT statement If do not need all columns.
+* Not good practice to use asterisk in SELECT statement If do not need all columns.
 
-Automatically query everything, increases traffic between the database server and application, which slows down retrieval of results.
+* Automatically query everything, increases traffic between the database server and application, which slows down retrieval of results.
 
-Can also change the order of the columns returned. E.g. if you want c3 before c1, just type c3, c1 in the query editor.
+To change the order of the columns returned. E.g. if you want c3 before c1, just type c3, c1 in the query editor.
 
 `SELECT first_name, last_name, email FROM customer;`
 
-Note that SQL syntax keywords in caps can be run as well in lowercase, the query will still work.
 
-Easier to read and standardised notation in caps.
-
-Semicolon ; denotes the end of a query. Still runs even without semicolon.
 
 
 ## SELECT DISTINCT
@@ -45,11 +47,11 @@ For simple calls, paranthesis is optional. For calls with COUNT and DISTINCT tog
 
 COUNT function returns the number of input rows that match a specific condition of query.
 
-Can apply COUNT to specific column or COUNT(*), both will return the same results.
+Can apply COUNT to specific column or `COUNT(*)`, both will return the same results.
 
 `SELECT COUNT(column_name) FROM table_name`
 
-Note that COUNT requires paranthesis, it will not work without it.
+* Note that COUNT requires paranthesis, it will not work without it.
 
 Can use COUNT with DISTINCT:
 
@@ -62,26 +64,28 @@ The WHERE statement allows to specify conditions on columns for the rows to be r
 
 `SELECT column1, column2 FROM table_name WHERE conditions`
 
-The WHERE keyword appears immediately after the FROM keyword of the SELECT statement.
+* The WHERE keyword appears immediately after the FROM keyword of the SELECT statement.
 
-The conditions are used to filter rows returned from the SELECT statement.
+* The conditions are used to filter rows returned from the SELECT statement.
 
 
 **Comparison Operators:**
 
 ~~~
-=	Equal
->	Greater than
-<	Less than
->=	Greater than or equal to
-<=	Less than or equal to
+=			Equal
+>			Greater than
+<			Less than
+>=			Greater than or equal to
+<=			Less than or equal to
 <> or !=	Not equal to
 ~~~
 
 **Logical Operators:**
-* AND
-* OR
-* NOT
+
+`AND
+OR
+NOT`
+
 
 Example: What is the email address for the customer with the name Nancy Thomas.
 
@@ -98,20 +102,20 @@ Example: A customer is late with their movie return. We have mailed them a lette
 `SELECT phone FROM address
 WHERE address = '259 Ipoh Drive';`
 
-Note: Realise that a table can share a same name as a column and the code still runs properly.
+* Note: Realise that a table can share a same name as a column and the code still runs properly.
 
 
 ## ORDER BY
 
 `SELECT column_1, column_2
 FROM table_1
-ORDER BY column_1 ASC / DESC;`
+ORDER BY column_1 DESC;`
 
-Note order by is at the end, after selecting and filtering is done
+* Note order by is at the end, after selecting and filtering is done
 
-If ASC or DESC is not selected, order by uses ascending by default
+* If ASC or DESC is not selected, order by uses ascending by default
 
-You can sort by columns that are not returned in the select statement
+* You can sort by columns that are not returned in the select statement
 
 Can also order by multiple columns e.g.
 
@@ -122,7 +126,7 @@ Can also order by multiple columns e.g.
 
 Allows limiting numbers of rows returned
 
-Goes at the very end of query and is the last command to be executed
+* Goes at the very end of query and is the last command to be executed
 
 `SELECT column_1, column_2
 FROM table_1
@@ -142,7 +146,7 @@ LIMIT 5;`
 
 Used to match value against range of values:
 
-`value BETWEEN low AND high`
+    `value BETWEEN low AND high`
 
 BETWEEN operator is the same as `value >= low AND value <= high`
 
