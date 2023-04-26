@@ -82,9 +82,11 @@ The WHERE statement allows to specify conditions on columns for the rows to be r
 
 **Logical Operators:**
 
-`AND
+```
+AND
 OR
-NOT`
+NOT
+```
 
 
 Example: What is the email address for the customer with the name Nancy Thomas.
