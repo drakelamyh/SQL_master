@@ -151,6 +151,16 @@ WHERE EXTRACT(dow FROM payment_date) = 1
 Note: PostgreSQL considers Sunday the start of the week (indexed at 0).
 
 
+Produce a list of members who joined after the start of September 2012?
+
+```
+SELECT * FROM cd.members
+WHERE joindate >= '2012-09-01';
+```
+
+
+
+
 
 
 # MATHEMATICAL FUNCTIONS AND OPERATORS
