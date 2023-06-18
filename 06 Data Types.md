@@ -17,8 +17,7 @@
 * Network address
 * Geometric data
 
-Documentation for limitations of data types:
-postgresql.org/docs/current/datatype.html
+Documentation for limitations of data types: https://www.postgresql.org/docs/current/datatype.html
 
 Example - for phone numbers, best to store it as a text type (or phone number specific data types which can be installed via additional libraries) instead of numeric type:
 * No arithmetic required
