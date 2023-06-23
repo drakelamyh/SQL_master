@@ -1,2 +1,3 @@
-# SQL_master
-For recording of all codes learnt for SQL
+# SQL Master
+
+To be used for recording of all SQL related codes and functionalities.
