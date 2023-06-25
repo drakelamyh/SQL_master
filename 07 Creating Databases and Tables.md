@@ -30,13 +30,48 @@ CREATE TABLE players (
 
 ## Creating new database in PostgreSQL
 
-Under Databases, right click and select Create - Database.
+In PostgreSQL, under Databases, right click and select Create - Database.
 
-Enter the name of the database. Then click Save.
+Enter the name of the database, then click Save.
 
 Right click on the new database created and refresh to ensure the connection is successful.
 
 Right click on the new database created and select Query Tool.
 
+Make sure Query Tool points to the correct database.
 
 
+No need worry about indentation or spacing for queries.
+
+
+```
+CREATE TABLE account(
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(250) UNIQUE NOT NULL,
+    created_on TIMESTAMP NOT NULL,
+    last_login TIMESTAMP
+)
+```
+
+Note that you can only create a table one time. Otherwise, an error saying table already exists shows up.
+
+```
+CREATE TABLE job(
+    job_id SERIAL PRIMARY KEY,
+    job_name VARCHAR(200) UNIQUE NOT NULL
+)
+```
+
+```
+CREATE TABLE account_job(
+    user_id INTEGER REFERENCES account(user_id),
+    job_id INTEGER REFERENCES job(job_id),
+    hire_date TIMESTAMP NOT NULL
+)
+```
+
+Notice that for the table referencing the foreign key, you do not indicate as SERIAL. Instead you indicate it as INTEGER.
+
+The constraint `REFERENCES table_name(primary_key)` indicates that this is a foreign key referencing to another table.
