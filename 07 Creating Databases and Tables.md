@@ -158,3 +158,98 @@ These constraints will do things like stop information being inserted into it if
 
 # UPDATE
 
+Allows change of values in table.
+
+General Syntax:
+
+```
+UPDATE table
+SET col1 = value1,
+col 2 = value2, ...
+WHERE
+    condition;
+```
+
+Example with WHERE. Can be done with or without the WHERE condition:
+
+```
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+WHERE last_login IS NULL
+```
+
+Example based on another col:
+
+```
+UPDATE account
+SET last_login = created_on
+```
+
+Example using another table's values, known as UPDATE JOIN:
+
+```
+UPDATE TableA
+Set original_col = TableB.new_col
+FROM TableB
+WHERE TableA.id = TableB.id
+```
+
+```
+UPDATE account_join
+SET hire_date = account.created_on
+FROM account
+WHERE account_job.user_id = account.user_id
+```
+
+Return affected rows:
+
+```
+UPDATE account
+SET last_login = created_on
+RETURNING account_id, last_login
+```
+
+```
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+RETURNING email, created_on, last_login
+```
+
+
+
+# DELETE
+
+Used to remove rows from table.
+
+Example:
+
+```
+DELETE FROM table
+WHERE row_id = 1
+```
+
+Delete rows based on presence in other tables
+
+```
+DELETE FROM tableA
+USING tableB
+WHERE tableA.id = tableB.id
+```
+
+Can delete all rows from table. Example:
+
+```
+DELETE FROM tableA
+```
+
+Example:
+
+```
+DELETE FROM job
+WHERE job_name = 'Cowboy'
+RETURNING job_id, job_name
+```
+
+
+
+# ALTER Table
