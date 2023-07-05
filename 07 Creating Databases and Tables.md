@@ -253,3 +253,89 @@ RETURNING job_id, job_name
 
 
 # ALTER Table
+
+Allows for changes to existing table structure, such as:
+* Add, drop, rename columns
+* Change column's data type
+* Set DEFAULT values for columns
+* Add CHECK constraints
+* Rename table
+
+Documentation: https://www.postgresql.org/docs/current/sql-altertable.html
+
+
+General syntax:
+
+```
+ALTER TABLE table_name action
+```
+
+For adding columns:
+
+```
+ALTER TABLE table_name
+ADD COLUMN new_col TYPE
+```
+
+Remove columns:
+
+```
+ALTER TABLE table_name
+DROP COLUMN col_name
+```
+
+Alter constraints:
+
+* Use SET to add and DROP to remove.
+
+```
+ALTER TABLE table_name
+ALTER COLUMN col_name
+SET DEFAULT value
+```
+
+```
+ALTER TABLE table_name
+ALTER COLUMN col_name
+DROP DEFAULT
+```
+
+```
+ALTER TABLE table_name
+ALTER COLUMN col_name
+SET NOT NULL
+```
+
+```
+ALTER TABLE table_name
+ALTER COLUMN col_name
+DROP NOT NULL
+```
+
+```
+ALTER TABLE table_name
+ALTER COLUMN col_name
+ADD CONSTRAINT constraint_name
+```
+
+Examples:
+
+```
+ALTER TABLE information
+RENAME TO new_info
+```
+
+```
+ALTER TABLE new_info
+RENAME COLUMN person TO people
+```
+
+```
+ALTER TABLE new_info
+ALTER COLUMN people DROP NOT NULL
+```
+
+
+
+# DROP Table
+
