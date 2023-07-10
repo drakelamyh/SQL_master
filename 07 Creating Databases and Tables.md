@@ -337,5 +337,107 @@ ALTER COLUMN people DROP NOT NULL
 
 
 
-# DROP Table
+# DROP
 
+Allows complete removal of column in table.
+
+In PostgreSQL, also automatically remove all its indexes and constraints involving the column.
+
+
+General syntax:
+
+```
+ALTER TABLE table_name
+DROP COLUMN col_name
+```
+
+However, it does not remove columns used on other things that are dependent on it, such as views, triggers, or stored procedures.
+
+If you do want to remove a column that has those dependencies for views, triggers and stored procedures, you can add in an additional CASCADE clause in order to remove that column and those associated dependencies.
+
+To remove all dependencies:
+
+```
+ALTER TABLE table_name
+DROP COLUMN col_name CASCADE
+```
+
+If you try to drop a column that does not exist, will get an error in PostgreSQL.
+
+Can add IF EXISTS keyword clause before the column name to avoid the error.
+
+Check for existence to avoid error:
+
+```
+ALTER TABLE table_name
+DROP COLUMN IF EXISTS col_name
+```
+
+Dropping multiple columns is similar to adding multiple columns.
+
+```
+ALTER TABLE table_name
+DROP COLUMN col_one,
+DROP COLUMN col_two
+```
+
+Example:
+
+```
+ALTER TABLE new_info
+DROP COLUMN people
+```
+
+
+
+# CHECK Constraint
+
+Can create more customized constraints that adhere to a certain condition.
+
+E.g. such as making sure all inserted integer values fall below a certain threshold.
+
+Example:
+
+```
+CREATE TABLE example(
+    ex_id SERIAL PRIMARY KEY,
+    age SMALLINT CHECK (age>21),
+    parent_age SMALLINT CHECK (
+        parent_age>age)
+    )
+;
+```
+
+Example:
+
+```
+CREATE TABLE employees(
+    emp_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    birthdate DATE CHECK (birthday > '1900-01-01'),
+    hire_date DATE CHECK (hire_date > birthdate),
+    salary INTEGER CHECK (salary > 0)
+    )
+;
+```
+
+```
+INSERT INTO employees(
+    first_name,
+    last_name,
+    birthdate,
+    hire_date,
+    salary
+)
+VALUES
+('Jose',
+'Portilla',
+'1990-11-03',
+'2020-01-01',
+100
+)
+;
+```
+
+Note: the primary key serial keeps the serial of failed attempts to insert. When you see a skip in serial numbers, it means either rows were removed or there were failed attempts to add rows in.
