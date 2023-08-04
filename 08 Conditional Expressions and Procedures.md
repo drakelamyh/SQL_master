@@ -193,3 +193,161 @@ As such, you can cast the integer as a string first, before checking the length.
 
 # NULLIF
 
+NULLIF takes in 2 inputs and returns NULL if both equal, else it returns the 1st argument passed.
+
+Useful when NULL value will cause error or unwanted result.
+
+Syntax:
+
+```
+NULLIF(arg1, arg2)
+```
+
+Example where we want to measre ratio of staff in dept A to B, but B happens to be 0.
+
+If we divide, an error where division by zero occurs.
+
+Instead, we can use NULLIF to introduce a NULL in the event dept B is 0.
+
+```
+SELECT(
+    SUM(CASE WHEN department = 'A' THEN 1 ELSE 0 END) /
+    NULLIF(SUM(CASE WHEN department = 'B' THEN 1 ELSE 0 END), 0)
+) AS department_ratio
+FROM depts
+```
+
+
+
+
+# VIEWS
+
+For common queries used often, can create a VIEW to quickly see the query.
+
+A view is a database object that is essentially a stored query.
+
+Can be accessed as virtual table in PostgreSQL.
+
+Note that a view does not store data physically, it simply stores the query.
+
+Example syntax:
+
+```
+SELECT * FROM view
+```
+
+Example:
+
+```
+CREATE VIEW cust_info AS
+SELECT first_name, last_name, address FROM customer
+INNER JOIN address
+ON customer.address_id = address.address.id
+
+```
+
+To alter a view (i.e. change the underlying query info), call the CREATE OR REPLACE command.
+
+Example:
+
+```
+CREATE OR REPLACE VIEW cust_info AS
+SELECT first_name, last_name, address FROM customer
+INNER JOIN address
+ON customer.address_id = address.address.id
+```
+
+To drop a view, use the DROP VIEW command.
+
+Example:
+
+```
+DROP VIEW cust_info
+```
+
+Can check whether view exist first before dropping.
+
+Example:
+
+```
+DROP VIEW IF EXISTS cust_info
+```
+
+To rename a view:
+
+```
+ALTER VIEW cust_info RENAME to c_info
+```
+
+
+
+
+
+
+# Importing and Exporting Data
+
+Note: Not every outside data file will work. Variations and things like formatting, macros embedded in the file, data types, data misalignment, etc., may prevent the input command from reading the file.
+
+Details of compatible file types and examples: https://www.postgresql.org/docs/current/sql-copy.html
+
+The copy command is what import uses internally when it's actually running the SQL code to import things through the PgAdmin graphical user interface.
+
+Note: You must provide the 100% correct file path to your outside file. Otherwise, the import command will fail to find the file.
+
+Note: The import command does not create a table for you.
+
+It assumes table already created.
+
+Currently no automated way within PgAdmin to create table directly from CSV file.
+
+Tools available to combine both steps, but not part of standard PgAdmin or PostgreSQL.
+
+Stack Overflow - How to import CSV file data into a PostgreSQL table
+https://stackoverflow.com/questions/2987433/how-to-import-csv-file-data-into-a-postgresql-table
+
+Enterprise DB - How to import and export data using CSV files in PostgreSQL
+https://www.enterprisedb.com/postgres-tutorials/how-import-and-export-data-using-csv-files-postgresql
+
+Stack Overflow - Can I automatically create a table in PostgreSQL from a csv file with headers?
+https://stackoverflow.com/questions/21018256/can-i-automatically-create-a-table-in-postgresql-from-a-csv-file-with-headers
+
+Example of creating table first:
+
+```
+CREATE TABLE simple(
+a INTEGER,
+b INTEGER,
+c INTEGER,
+)
+```
+
+Then, go to the database, select Schemas, public, Tables, and locate the table created.
+
+Right click and select Import/Export.
+
+Under the Options tab:
+* Under Import/Export, switch to Import
+* Under Filename, either type in file path or click the three dots to explore the file.
+* Under Format, make sure it is correct e.g. csv
+* Under Header, indicate Yes if there is a header in the CSV file
+* Under Delimiter, select comma for csv file
+* Under Quote, select the relevant symbol to specify quotes. Default is double-quote.
+* Under Escape, select the relevant symbol for the escape character, which is used to prevent the interpretation of special characters in a string.
+
+Under the Columns Tab
+* Under Columns to import, you can remove columns if not required.
+
+To export, select the table of interest in PostgreSQL, right click and select Import/Export.
+
+Under the Options tab:
+* Under Import/Export, switch to Export
+* Under Filename, type in file path to save the new exported file
+* Under Format, make sure it is correct e.g. csv
+* Under Header, indicate Yes if there is a header in the CSV file
+* Under Delimiter, select comma for csv file
+* Under Quote, select the relevant symbol to specify quotes. Default is double-quote.
+* Under Escape, select the relevant symbol for the escape character, which is used to prevent the interpretation of special characters in a string.
+
+Under the Columns Tab
+* Under Columns to column, select the columns required.
+
